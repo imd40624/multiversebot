@@ -672,8 +672,14 @@ async def ping(ctx):
 @client.command(pass_context = True)
 async def announce(ctx, channel: discord.Channel=None, *, msg: str):
     member = ctx.message.author
+    if channel is None:
+	await client.say('Channel not specified. Use this command like ``mv!announce #channel text here``')
+	return
+    if msg is None:
+	await client.say('Message not specified. Use this command like ``mv!announce #channel text here')
+	return
     if member.server_permissions.administrator:
-        await client.say('**You cannot mute admin/moderator!**')
+        await client.say('**You do not have admin permission to use that command**')
         return
     else:
         r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
