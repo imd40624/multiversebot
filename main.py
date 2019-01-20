@@ -670,15 +670,22 @@ async def ping(ctx):
       await client.say("Ping: {}ms".format(round((t2-t1)*1000)))
 
 @client.command(pass_context = True)
-@commands.has_permissions(administrator = True)
 async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
-    try:
+    member = ctx.message.author
+    if channel is None:
+	await client.say('Channel not specified. Use this command like ``mv!announce #channel text here``')
+	return
+    if msg is None:
+	await client.say('Message not specified. Use this command like ``mv!announce #channel text here')
+	return
+    if member.server_permissions.administrator:
+        await client.say('**You do not have admin permission to use that command**')
+        return
+    else:
         r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
         embed=discord.Embed(title="Announcement", description="{}".format(msg), color = discord.Color((r << 16) + (g << 8) + b))
         await client.send_message(channel, embed=embed)
         await client.delete_message(ctx.message)
-    except:
-        await client.say("Error :x:. Make sure your message is shaped in this way: ``mv!announce #channel text``\nOr maybe you do not have permission to use this command")
 	
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True) 
