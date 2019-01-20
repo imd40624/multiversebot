@@ -672,20 +672,20 @@ async def ping(ctx):
 @client.command(pass_context = True)
 async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
     member = ctx.message.author
-    if channel is None:
-        await client.say('Channel and Message is not specified. Use this command like ``mv!announce #channel text here``')
-        return
-    if msg is None:
-        await client.say('Message is not specified. Use this command like ``mv!announce #channel text here')
-        return
-    if member.server_permissions.administrator is None:
-        await client.say('**You do not have admin permission to use that command**')
-        return
+    try:
+        if channel is None:
+            await client.say('Channel and Message is not specified. Use this command like ``mv!announce #channel text here``')
+            return
+        if msg is None:
+            await client.say('Message is not specified. Use this command like ``mv!announce #channel text here``')
+            return
+        else:
+            r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
+            embed=discord.Embed(title="Announcement", description="{}".format(msg), color = discord.Color((r << 16) + (g << 8) + b))
+            await client.send_message(channel, embed=embed)
+            await client.delete_message(ctx.message)
     else:
-        r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
-        embed=discord.Embed(title="Announcement", description="{}".format(msg), color = discord.Color((r << 16) + (g << 8) + b))
-        await client.send_message(channel, embed=embed)
-        await client.delete_message(ctx.message)
+	await client.say('You do not have admin permission so you are unable to use this command')
 	
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True) 
