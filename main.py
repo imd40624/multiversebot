@@ -677,10 +677,8 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
         embed=discord.Embed(title="Announcement", description="{}".format(msg), color = discord.Color((r << 16) + (g << 8) + b))
         await client.send_message(channel, embed=embed)
         await client.delete_message(ctx.message)
-    except discord.ext.commands.MissingPermissions:
-        await client.say("**You do not have admin permission to use this command**")
     except:
-        await client.say("Error :x:. Make sure your message is shaped in this way: mv!announce #channel text")
+        await client.say("Error :x:. Make sure your message is shaped in this way: ``mv!announce #channel text``\nOr maybe you do not have permission to use this command")
 	
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True) 
