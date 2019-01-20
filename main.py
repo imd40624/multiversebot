@@ -684,7 +684,7 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
             embed=discord.Embed(title="Announcement", description="{}".format(msg), color = discord.Color((r << 16) + (g << 8) + b))
             await client.send_message(channel, embed=embed)
             await client.delete_message(ctx.message)
-    else:
+    except:
 	await client.say('You do not have admin permission so you are unable to use this command')
 	
 @client.command(pass_context = True)
