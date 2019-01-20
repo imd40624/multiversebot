@@ -673,10 +673,10 @@ async def ping(ctx):
 async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
     member = ctx.message.author
     if channel is None:
-        await client.say('Channel not specified. Use this command like ``mv!announce #channel text here``')
+        await client.say('Channel and Message is not specified. Use this command like ``mv!announce #channel text here``')
         return
     if msg is None:
-        await client.say('Message not specified. Use this command like ``mv!announce #channel text here')
+        await client.say('Message is not specified. Use this command like ``mv!announce #channel text here')
         return
     if member.server_permissions.administrator:
         await client.say('**You do not have admin permission to use that command**')
