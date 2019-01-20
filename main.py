@@ -677,7 +677,7 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
         return
     else:
         if member.server_permissions.administrator == False:
-            await client.say('**You do not have admin permission to use that command**')
+            await client.say('**You do not have permission to use this command**')
             return
         else:
             r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
@@ -686,32 +686,37 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
             await client.delete_message(ctx.message)
 	
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True) 
 async def delchannel(ctx, channel: discord.Channel=None):
     if channel is None:
         await client.delete_channel(ctx.message.channel)
         await client.send_message(ctx.message.author, "{} channel has been deleted in {}".format(ctx.message.channel.name, ctx.message.server.name))
     else:
-        await client.delete_channel(channel)
-        await client.say("{} channel has been deleted.".format(channel.name))
+        if ctx.message.author.server_permissions.administrator == False:
+            await client.say('**You do not have permission to use this command**')
+            return
+        else:
+            await client.delete_channel(channel)
+            await client.say("{} channel has been deleted.".format(channel.name))
 
 
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True) 
 async def addchannel(ctx, channel: str=None):
     server = ctx.message.server
     if channel is None:
         await client.say("Please specify a channel name")
     else:
-        everyone_perms = discord.PermissionOverwrite(send_messages=None, read_messages=None)
-        everyone = discord.ChannelPermissions(target=server.default_role, overwrite=everyone_perms)
-        await client.create_channel(server, channel, everyone)
-        await client.say("{} channel has been created.".format(channel))
+        if ctx.message.author.server_permissions.administrator == False:
+            await client.say('**You do not have permission to use this command**')
+            return
+        else:
+            everyone_perms = discord.PermissionOverwrite(send_messages=None, read_messages=None)
+            everyone = discord.ChannelPermissions(target=server.default_role, overwrite=everyone_perms)
+            await client.create_channel(server, channel, everyone)
+            await client.say("{} channel has been created.".format(channel))
 
-	
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
 async def mute(ctx, member: discord.Member=None, mutetime=None):
+    msgauthor = ctx.message.author
     if member is None:
         await client.say('Please specify member i.e. Mention a member to mute. Example-``mv!mute @user <time in minutes>``')
         return
@@ -720,6 +725,9 @@ async def mute(ctx, member: discord.Member=None, mutetime=None):
         return
     if member.server_permissions.kick_members:
         await client.say('**You cannot mute admin/moderator!**')
+        return
+    if msgauthor.server_permissions.kick_members == False:
+        await client.say('**You do not have permission. So you are unable to use this command**')
         return
     if discord.utils.get(member.server.roles, name='Muted') is None:
         await client.say('No muted role found. Please add it')
@@ -756,22 +764,33 @@ async def lock(ctx, channelname: discord.Channel=None):
         await client.edit_channel_permissions(ctx.message.channel, role, overwrite)
         await client.say("Channel locked by: {}".format(ctx.message.author))
     else:
-        role = discord.utils.get(ctx.message.server.roles, name='@everyone')
-        await client.edit_channel_permissions(channelname, role, overwrite)
-        await client.say("Channel locked by: {}".format(ctx.message.author))
+        if ctx.message.author.server_permissions.kick_members == False:
+            await client.say('**You do not have permission to use this command**')
+            return
+	else:
+            role = discord.utils.get(ctx.message.server.roles, name='@everyone')
+            await client.edit_channel_permissions(channelname, role, overwrite)
+            await client.say("Channel locked by: {}".format(ctx.message.author))
 	
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
 async def unlock(ctx, channelname: discord.Channel=None):
     overwrite = discord.PermissionOverwrite(send_messages=None, read_messages=True)
     if not channelname:
-        role = discord.utils.get(ctx.message.server.roles, name='@everyone')
-        await client.edit_channel_permissions(ctx.message.channel, role, overwrite)
-        await client.say("Channel unlocked by: {}".format(ctx.message.author))
+        if ctx.message.author.server_permissions.kick_members == False:
+            await client.say('**You do not have permission to use this command**')
+            return
+        else:
+            role = discord.utils.get(ctx.message.server.roles, name='@everyone')
+            await client.edit_channel_permissions(ctx.message.channel, role, overwrite)
+            await client.say("Channel unlocked by: {}".format(ctx.message.author))
     else:
-        role = discord.utils.get(ctx.message.server.roles, name='@everyone')
-        await client.edit_channel_permissions(channelname, role, overwrite)
-        await client.say("Channel unlocked by: {}".format(ctx.message.author))
+        if ctx.message.author.server_permissions.kick_members == False:
+            await client.say('**You do not have permission to use this command**')
+            return
+        else:
+            role = discord.utils.get(ctx.message.server.roles, name='@everyone')
+            await client.edit_channel_permissions(channelname, role, overwrite)
+            await client.say("Channel unlocked by: {}".format(ctx.message.author))
 	
 @client.command(pass_context = True)
 async def meme(ctx):
@@ -883,20 +902,23 @@ async def flipcoin(ctx):
 
 	
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
 async def unmute(ctx, member: discord.Member=None):
     if member is None:
       await client.say('Please specify member i.e. Mention a member to unmute. Example- ``mv!unmute @user``')
     if ctx.message.author.bot:
       return
     else:
-      role = discord.utils.get(member.server.roles, name='Muted')
-      await client.remove_roles(member, role)
-      await client.say("Unmuted **{}**".format(member))
-      for channel in member.server.channels:
-        if channel.name == '╰☆☆-multiverse-log-☆☆╮':
-            embed=discord.Embed(title="User unmuted!", description="**{0}** was unmuted by **{1}**!".format(member, ctx.message.author), color=0xFD1600)
-            await client.send_message(channel, embed=embed)
+      if ctx.message.author.server_permissions.kick_members == False:
+        await client.say('**You do not have permission to use this command**')
+        return
+      else:
+        role = discord.utils.get(member.server.roles, name='Muted')
+        await client.remove_roles(member, role)
+        await client.say("Unmuted **{}**".format(member))
+        for channel in member.server.channels:
+          if channel.name == '╰☆☆-multiverse-log-☆☆╮':
+              embed=discord.Embed(title="User unmuted!", description="**{0}** was unmuted by **{1}**!".format(member, ctx.message.author), color=0xFD1600)
+              await client.send_message(channel, embed=embed)
      
 @client.command(pass_context = True)
 @commands.has_permissions(kick_members=True) 
