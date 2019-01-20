@@ -685,7 +685,8 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
             await client.send_message(channel, embed=embed)
             await client.delete_message(ctx.message)
     except:
-	await client.say('You do not have admin permission so you are unable to use this command')
+        await client.say('You do not have admin permission so you are unable to use this command')
+        return
 	
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True) 
