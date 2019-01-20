@@ -678,7 +678,7 @@ async def announce(ctx, channel: discord.Channel=None, *, msg: str=None):
     if msg is None:
         await client.say('Message is not specified. Use this command like ``mv!announce #channel text here')
         return
-    if member.server_permissions.administrator:
+    if member.server_permissions.administrator is None:
         await client.say('**You do not have admin permission to use that command**')
         return
     else:
