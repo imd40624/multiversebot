@@ -756,7 +756,6 @@ async def mute(ctx, member: discord.Member=None, mutetime=None):
                 return
 	
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
 async def lock(ctx, channelname: discord.Channel=None):
     overwrite = discord.PermissionOverwrite(send_messages=False, read_messages=True)
     if not channelname:
@@ -880,17 +879,17 @@ async def rolldice(ctx):
 
    
 @client.command(pass_context = True)
-@commands.has_permissions(administrator = True)
 async def dm(ctx, user: discord.Member, *, msg: str):
-    try:
-        await client.send_message(user, msg)
-        await client.delete_message(ctx.message)          
-        await client.say("Success! Your DM has made it! :white_check_mark: ")
-    except discord.ext.commands.MissingPermissions:
-        await client.say("Aw, come on! You thought you could get away with DM'ing people without permissions.")
-    except:
-        await client.say("Error :x:. Make sure your message is shaped in this way: mv!dm [tag person] [msg]")
-	
+   if user is None or msg is None:
+       await client.say('Invalid args. Use this command like: ``mv!dm @user message``')
+   if ctx.message.author.server_permissions.kick_members == False:
+       await client.say('**You do not have permission to use this command**')
+       return
+   else:
+       await client.send_message(user, msg)
+       await client.delete_message(ctx.message)          
+       await client.say("Success! Your DM has made it! :white_check_mark: ")
+
 @client.command(pass_context = True)
 async def flipcoin(ctx):
     choices = ['Heads', 'Tails', 'Coin self-destructed']
@@ -921,12 +920,14 @@ async def unmute(ctx, member: discord.Member=None):
               await client.send_message(channel, embed=embed)
      
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True) 
 @commands.cooldown(rate=5,per=86400,type=BucketType.user) 
 async def access(ctx, member: discord.Member=None):
     if member is None:
       await client.say("Please specify a member to give access to him. Example- ``mv!access @user``")
     if ctx.message.author.bot:
+      return
+    if ctx.message.author.server_permissions.kick_members == False:
+      await client.say('**You do not have permission to use this command**')
       return
     else:
       role = discord.utils.get(member.server.roles, name='Access')
@@ -940,9 +941,11 @@ async def access(ctx, member: discord.Member=None):
             await client.remove_roles(member, role)
 	   
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True)
 async def setupwelcomer(ctx):
     if ctx.message.author.bot:
+      return
+    if ctx.message.author.server_permissions.administrator == False:
+      await client.say('**You do not have permission to use this command**')
       return
     else:
       server = ctx.message.server
@@ -955,6 +958,9 @@ async def setupwelcomer(ctx):
 async def setuppartner(ctx):
     if ctx.message.author.bot:
       return
+    if ctx.message.author.server_permissions.administrator == False:
+      await client.say('**You do not have permission to use this command**')
+      return
     else:
       server = ctx.message.server
       everyone_perms = discord.PermissionOverwrite(send_messages=False, read_messages=True)
@@ -963,10 +969,12 @@ async def setuppartner(ctx):
       
 @client.command(pass_context=True)
 @commands.cooldown(rate=1,per=86400,type=BucketType.user) 
-@commands.has_permissions(administrator=True)
 async def partner(ctx, *, msg=None):
     if msg is None:
        await client.say("Please specify a partnership description")
+       return
+    if ctx.message.author.server_permissions.administrator == False:
+       await client.say('**You do not have permission to use this command**')
        return
     else:
        for server in client.servers:
@@ -983,9 +991,11 @@ async def partner(ctx, *, msg=None):
                await client.delete_message(ctx.message)
          
 @client.command(pass_context = True)
-@commands.has_permissions(administrator=True)
 async def setuplog(ctx):
     if ctx.message.author.bot:
+      return
+    if ctx.message.author.server_permissions.administrator == False:
+      await client.say('**You do not have permission to use this command**')
       return
     else:
       author = ctx.message.author
@@ -995,11 +1005,13 @@ async def setuplog(ctx):
       await client.create_channel(server, '╰☆☆-multiverse-log-☆☆╮',everyone)
 
 @client.command(pass_context=True)  
-@commands.has_permissions(kick_members=True)
 async def getuser(ctx, role: discord.Role = None):
     if role is None:
         await client.say('Please tag a role to get users having it. Example- ``mv!getuser @role``')
         return
+    if ctx.message.author.server_permissions.kick_members == False:
+       await client.say('**You do not have permission to use this command**')
+       return
     empty = True
     for member in ctx.message.server.members:
         if role in member.roles:
@@ -1009,11 +1021,13 @@ async def getuser(ctx, role: discord.Role = None):
         await client.say("Nobody has the role {}".format(role.mention))
 
 @client.command(pass_context = True)
-@commands.has_permissions(kick_members=True)     
 async def userinfo(ctx, user: discord.Member=None):
     if user is None:
-        await client.say('Please tag a user to get user information. Example- ``mv!userinfo @user``')
+      await client.say('Please tag a user to get user information. Example- ``mv!userinfo @user``')
     if ctx.message.author.bot:
+      return
+    if ctx.message.author.server_permissions.kick_members == False:
+      await client.say('**You do not have permission to use this command**')
       return
     else:
       r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
@@ -1047,9 +1061,11 @@ async def iamdark(ctx):
         await client.send_message(author, embed=embed)
 	
 @client.command(pass_context = True)
-@commands.has_permissions(manage_roles=True)
 async def addrole(ctx,*, role:str=None):
     user = ctx.message.author
+    if user.server_permissions.manage_roles == False:
+        await client.say('**You do not have permission to use this command**')
+        return
     if discord.utils.get(user.server.roles, name="{}".format(role)) is None:
         await client.create_role(user.server, name="{}".format(role), permissions=discord.Permissions.none())
         await client.say("{} role has been added.".format(role))
@@ -1058,10 +1074,12 @@ async def addrole(ctx,*, role:str=None):
         await client.say("{} role is already exists".format(role))
 		
 @client.command(pass_context = True)
-@commands.has_permissions(manage_roles=True)
 async def roleinfo(ctx,*, role:discord.Role=None):
     if discord.utils.get(ctx.message.server.roles, name="{}".format(role)) is None:
         await client.say("No such role found")
+        return
+    if ctx.message.author.server_permissions.manage_roles == False:
+        await client.say('**You do not have permission to use this command**')
         return
     else:
         r, g, b = tuple(int(x * 255) for x in colorsys.hsv_to_rgb(random.random(), 1, 1))
@@ -1075,13 +1093,15 @@ async def roleinfo(ctx,*, role:discord.Role=None):
 		
 
 @client.command(pass_context = True)
-@commands.has_permissions(manage_roles=True)
 async def rolecolor(ctx, role:discord.Role=None, value:str=None):
     if discord.utils.get(ctx.message.server.roles, name="{}".format(role)) is None:
         await client.say("Use this command like ``mv!rolecolor (ROLENAME) (ROLECOLOUR IN HEXCODE)``")
         return
     if value is None:
         await client.say("Use this command like ``mv!rolecolor (ROLENAME) (ROLECOLOUR IN HEXCODE)``")
+        return
+    if ctx.message.author.server_permissions.manage_roles == False:
+        await client.say('**You do not have permission to use this command**')
         return
     else:
         new_val = value.replace("#", "")
@@ -1102,20 +1122,24 @@ async def cthex(ctx,value:str=None):
         await client.say('Use that like: ``color = discord.Color(int(colour, base=16)))``')
 		
 @client.command(pass_context = True)
-@commands.has_permissions(manage_roles=True)
 async def delrole(ctx,*, role: discord.Role = None):
     user = ctx.message.author
     if discord.utils.get(ctx.message.server.roles, name="{}".format(role)) is None:
         await client.say("There is no role with this name in this server")
+    if ctx.message.author.server_permissions.manage_roles == False:
+        await client.say('**You do not have permission to use this command**')
+        return
     else:
         await client.delete_role(ctx.message.server, role)
         await client.say(f"{role} role has been deleted")
 
 	
 @client.command(pass_context=True)
-@commands.has_permissions(ban_members=True)
 async def unbanall(ctx):
     if ctx.message.author.bot:
+      return
+    if ctx.message.author.server_permissions.ban_members == False:
+      await client.say('**You do not have permission to use this command**')
       return
     else:
       server=ctx.message.server
