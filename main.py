@@ -41,6 +41,8 @@ async def status_task():
         await asyncio.sleep(5)
         await client.change_presence(game=discord.Game(name=str(len(client.servers))+' servers', type=3))
         await asyncio.sleep(5)
+        await client.change_presence(game=discord.Game(name='music'))
+        await asyncio.sleep(5)
         await client.change_presence(game=discord.Game(name='I need some upvotes to grow ;('))
         await asyncio.sleep(5)
 
