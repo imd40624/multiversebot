@@ -1244,7 +1244,6 @@ async def role(ctx, user:discord.Member=None,*, role:discord.Role=None):
         await client.say("{} role has been added in {}.".format(role, user))
         return
 
-
 @role.command(pass_context=True)
 @commands.has_permissions(manage_roles=True)  
 async def all(ctx,*,role:discord.Role=None):
@@ -1306,8 +1305,8 @@ async def warn(ctx, userName: discord.User=None,*, message:str=None):
         if channel.name == '╰☆☆-multiverse-log-☆☆╮':
             embed=discord.Embed(title="User Warned!", description="{0} warned by {1} for {2}".format(userName, ctx.message.author, message), color=0x0521F6)
             await client.send_message(channel, embed=embed)      
-
-@client.command(pass_context = True)
+	
+@client.group(pass_context=True, invoke_without_command=True)
 @commands.has_permissions(manage_nicknames=True)     
 async def setnick(ctx, user: discord.Member=None, *, nickname=None):
     if user is None:
@@ -1321,9 +1320,9 @@ async def setnick(ctx, user: discord.Member=None, *, nickname=None):
             embed=discord.Embed(title="Changed Nickname of User!", description="**{0}** nickname was changed by **{1}**!".format(member, ctx.message.author), color=0x0521F6)
             await client.send_message(channel, embed=embed)
 		
-@client.command(pass_context = True)
-@commands.has_permissions(administrator=True)     
-async def setnickall(ctx,*, nickname:str=None):
+@setnick.command(pass_context=True)
+@commands.has_permissions(manage_nicknames=True)     
+async def all(ctx,*,nickname:str=None):
     if nickname is None:
       await client.say('Please use this command like:``mv!setnickall <new nickname>``')
       return
@@ -1333,9 +1332,15 @@ async def setnickall(ctx,*, nickname:str=None):
           new_nick = nickname + user.name
           await asyncio.sleep(1)
           await client.change_nickname(user, new_nick)
+	  state = 'add'
         except:
           pass	
-
+      if state = 'add':
+        await client.say(f'Setted up nickname of everyone to ``{nickname} + username``')
+	return
+      else:
+	pass
+		
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True)     
 async def resetnickall(ctx):
