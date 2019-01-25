@@ -1335,7 +1335,7 @@ async def all(ctx,*,nickname:str=None):
           state = 'add'
         except:
           pass	
-      if state = 'add':
+      if state == 'add':
         await client.say(f'Setted up nickname of everyone to ``{nickname} + username``')
 	return
       else:
