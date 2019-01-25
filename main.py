@@ -1236,8 +1236,8 @@ async def role(ctx, user:discord.Member=None,*, role:discord.Role=None):
         await client.remove_roles(user, role)
         await client.say("{} role has been removed in {}.".format(role, user))
     if role not in ctx.message.server.roles:
-	await client.say(f'{role} Not found')
-	return
+        await client.say(f'{role} Not found')
+        return
     else:
         await client.add_roles(user, role)
         await client.say("{} role has been added in {}.".format(role, user))
@@ -1250,8 +1250,8 @@ async def all(ctx,*,role:discord.Role=None):
         await client.say('Use this command like: ``mv!role all role``')
         return
     if role not in ctx.message.server.roles:
-	await client.say(f'{role} Not found')
-	return
+        await client.say(f'{role} Not found')
+        return
     else:
         for user in ctx.message.server.members:
           await asyncio.sleep(1)
