@@ -1240,7 +1240,7 @@ async def role(ctx, user:discord.Member=None,*, role:discord.Role=None):
         await client.say("{} role has been added in {}.".format(role, user))
 
 
-@testrole.command(pass_context=True)
+@role.command(pass_context=True)
 @commands.has_permissions(manage_roles=True)  
 async def all(ctx,*,role:discord.Role=None):
     if role is None:
