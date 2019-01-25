@@ -1332,7 +1332,7 @@ async def all(ctx,*,nickname:str=None):
           new_nick = nickname + user.name
           await asyncio.sleep(1)
           await client.change_nickname(user, new_nick)
-	  state = 'add'
+          state = 'add'
         except:
           pass	
       if state = 'add':
