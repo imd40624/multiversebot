@@ -1263,8 +1263,10 @@ async def all(ctx,*,role:discord.Role=None):
         if state == 'remove':
             await client.say(f'Removed {role.name} role from everyone')
 
-        elif state == 'add':
+        if state == 'add':
             await client.say(f'Gave {role.name} role to everyone')
+        else:
+            pass
 	
 
 @client.command(pass_context = True)
