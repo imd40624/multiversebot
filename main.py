@@ -53,9 +53,9 @@ general1=discord.Embed(title="General Commands | Page 1", description="**__mv!do
 general2=discord.Embed(title="General Commands | Page 2", description="**__mv!serverinvite__** \nUse it to get server invite link.\n\n**__mv!avatar__**\nUse it like ``mv!avatar or mv!avatar @user``\n\n**__mv!ping__**\nUse it to check ping of bot\n\n**__mv!enterme__**\nUse it like ``mv!enterme <giveaway channel>`` to enter in a giveaway running in a particular channel\n\n**__mv!poll__**\nUse it like ``mv!poll Question Option1 Option2 ..... Option9``.\n\n**__mv!github__**\nUse it like- ``mv!github uksoftworld``\n\n**__mv!bottutorial__**\nUse it like ``mv!bottutorial <tutorial name by darklegend>``\n\n**__mv!dyno__**\nUse it like ``mv!dyno <dyno command name>``\n\n**__mv!happybirthday @user__**\nTo wish someone happy birthday\n\n**__mv!verify__**Use it to get verified role. Note- It needs proper setup.\n\n**__mv!rank__**\nUse it to check your daily multiverse rank(xp + level)", color = discord.Color((r << 16) + (g << 8) + b))
 general3=discord.Embed(title="Fun Commands <==> General Commands | Page 3", description="**__mv!joke__**\n\n**__mv!kiss @user__**\n\n**__mv!hug @user__**\n\n**__mv!slap @user__**\n\n**__mv!damn__**\n\n**__mv!burned__**\n\n**__mv!savage__**\n\n**__mv!thuglife__**\n\n**__mv!membernames__**\n\n**__mv!gender @user__**\n\n**__mv!virgin @user__**\n\n**__mv!meme__**\n\n**__mv!rolldice__**\n\n**__mv!flipcoin__**\n\n**__mv!guess__**\n\n**__mv!movie <movie name>__**\n\n**__mv!rps <rock ,paper or scissors>__**\n\n**__mv!urban <string>__**\n\n**__mv!imgursearch <anything>__**\n\n**__mv!gifsearch <anything>__**\n\n**__mv!talk anything__**\nUse it to make bot say anything in voice channel", color = discord.Color((r << 16) + (g << 8) + b))
 mod1=discord.Embed(title="Admin and Mod Commands | Page 1", description="**__mv!partner(Admin permission required) (Cooldown of 12hours)__** \nUse it like ``mv!partner <partnership description>`` to partner with many servers with are connected with MultiVerse Official bot \n\n**__mv!dm(Admin permission required)__** \nUse it like ``mv!dm @user <text>`` to dm user from bot \n\n**__mv!say(Admin permission required)__**\nUse it like ``mv!say <text>``\n\n **__mv!showme(Requires a role named Giveaways)__**\n To see how many people are taking part in giveaway\n\n**__mv!pickwinner(Requires a role named Giveaways)__**\nTo pick winner of currentmost giveaways\n\n**__mv!embed(Admin permission required__**\nUse it like ``mv!embed <text>``\n\n**__mv!membercount(Kick members Permission Required)__** \n Use it to get membercount of server\n\n**__mv!lock(Kick members Permission Required)__**\nUse it like ``mv!lock #channel or mv!lock`` to lock a channel\n\n**__mv!unlock(Kick members Permission Required)__**\nUse it like ``mv!unlock #channel or mv!unlock`` to unlock a channel", color = discord.Color((r << 16) + (g << 8) + b))
-mod2=discord.Embed(title="Admin and Mod Commands | Page 2", description="**__mv!removemod(Admin Permission Required)__** \nUse it like ``mv!removemod @user`` to remove him from mod. Note-You need Moderator role in your server below bot to use it.\n\n**__mv!makemod(Admin Permission Required)__**\nUse it like ``mv!makemod @user`` to make him mod. Note-You need Moderator role in your server below multiverse bot to use it.\n\n**__mv!friend(Admin Permission Required)__**\nUse it like ``mv!friend @user`` to give anyone Friend of Owner role\n\n**__mv!role(Manage Roles Permission Required)__**\nUse it like ``mv!role @user <rolename>``.\n\n**__mv!setnick(Manage nickname permission required)__**\nUse it like ``mv!setnick @user <New nickname>`` to change the nickname of tagged user.\n\n**__mv!english(Kick members Permission Required)__**\nUse it like ``mv!english @user`` when someone speaks languages other than English.\n\n**__mv!serverinfo(Kick members Permission Required)__**\nUse it like ``mv!serverinfo`` to get server info\n\n**__mv!userinfo(Kick members Permission Required)__**\nUse it like ``mv!userinfo @user`` to get some basic info of tagged user.", color = discord.Color((r << 16) + (g << 8) + b))
+mod2=discord.Embed(title="Admin and Mod Commands | Page 2", description="**__mv!removemod(Admin Permission Required)__** \nUse it like ``mv!removemod @user`` to remove him from mod. Note-You need Moderator role in your server below bot to use it.\n\n**__mv!makemod(Admin Permission Required)__**\nUse it like ``mv!makemod @user`` to make him mod. Note-You need Moderator role in your server below multiverse bot to use it.\n\n**__mv!friend(Admin Permission Required)__**\nUse it like ``mv!friend @user`` to give anyone Friend of Owner role\n\n**__mv!role(Manage Roles Permission Required)__**\nUse it like ``mv!role @user/all <rolename>`` to give/take role from @user or all in server.\n\n**__mv!setnick(Manage nickname permission required)__**\nUse it like ``mv!setnick all/@user <New nickname>`` to change the nickname of tagged user or all in the server.\n\n**__mv!english(Kick members Permission Required)__**\nUse it like ``mv!english @user`` when someone speaks languages other than English.\n\n**__mv!serverinfo(Kick members Permission Required)__**\nUse it like ``mv!serverinfo`` to get server info\n\n**__mv!userinfo(Kick members Permission Required)__**\nUse it like ``mv!userinfo @user`` to get some basic info of tagged user.", color = discord.Color((r << 16) + (g << 8) + b))
 mod3=discord.Embed(title="Admin and Mod Commands | Page 3", description="**__mv!unbanall(Unban members Permission Required)__** \nUse it like ``mv!unbanall`` to unban all members\n\n**__mv!unban__**\nUse it like: ``mv!unban userid`` to unban user.\n\n**__mv!kick(Kick members Permission Required)__**\nUse it like ``mv!kick @user`` to kick any user\n\n**__mv!muteinchannel(Ban members Permission Required)__**\nUse it like ``mv!muteinchannel @user <time in minutes>`` Example- ``mv!muteinchannel @user 1`` to mute user for 1min.\n\n**__mv!unmuteinchannel(Ban members Permission Required)__**\nUse it like ``mv!unmuteinchannel @user`` to unmute user from that channel.\n\n**__mv!roles(Kick members Permission Required)__**\nUse it to check roles present in server.\n\n**__mv!purge(Manage Messages Permission Required)__**\nUse it like ``mv!purge <number>`` to clear any message.\n\n**__mv!mute(Mute members Permission Required)__**\nUse it like ``mv!mute @user <time in minutes>`` to mute any user. **Note-You need to add Muted role in your server if it is not already there also you must need to change permission of all channels and disable send_message permission for that role.**\n\n**__mv!unmute(Mute members Permission Required)__**\nUse it like ``mv!unmute @user`` to unmute anyone.", color = discord.Color((r << 16) + (g << 8) + b))
-mod4=discord.Embed(title="Admin and Mod Commands | Page 4", description="**__mv!ban(Ban members Permission Required)__** \nUse it like ``mv!ban @user`` to ban any user\n\n**__mv!rules(Kick members Permission Required)__**\nUse it like ``mv!rules @user <violation type>`` to warn user\n\n**__mv!warn(Kick members Permission Required)__**\nUse it like ``mv!warn @user <violation type>`` to warn any user.\n\n**__mv!norole(Kick members Permission Required)__**\nUse it like ``mv!norole @user`` to warn anyone if he/she asks for promotion.\n\n**__mv!getuser(Kick members Permission Required)__**\nUse it like ``mv!getuser rolename`` to get list of all users having a that role.\n\n**__mv!roleinfo(Manage roles Permission Required)__**\nUse it like ``mv!roleinfo <rolename>`` to get basic info about that role.\n\n**__mv!addchannel(Administrator Permission Required)__**\nUse it like ``mv!addchannel <channelname>`` to add that channel in server.\n\n**__mv!delchannel(Administrator Permission Required)__**\nUse it like ``mv!delchannel <channelname>`` to delete that channel in server.\n\n**__mv!setnickall__**\nIt changes nickname of all members by adding text in front of member nicknames in server.\n\n**__mv!resetnickall__**\nUse it to reset nickname of all users in server", color = discord.Color((r << 16) + (g << 8) + b))
+mod4=discord.Embed(title="Admin and Mod Commands | Page 4", description="**__mv!ban(Ban members Permission Required)__** \nUse it like ``mv!ban @user`` to ban any user\n\n**__mv!rules(Kick members Permission Required)__**\nUse it like ``mv!rules @user <violation type>`` to warn user\n\n**__mv!warn(Kick members Permission Required)__**\nUse it like ``mv!warn @user <violation type>`` to warn any user.\n\n**__mv!norole(Kick members Permission Required)__**\nUse it like ``mv!norole @user`` to warn anyone if he/she asks for promotion.\n\n**__mv!getuser(Kick members Permission Required)__**\nUse it like ``mv!getuser rolename`` to get list of all users having a that role.\n\n**__mv!roleinfo(Manage roles Permission Required)__**\nUse it like ``mv!roleinfo <rolename>`` to get basic info about that role.\n\n**__mv!addchannel(Administrator Permission Required)__**\nUse it like ``mv!addchannel <channelname>`` to add that channel in server.\n\n**__mv!delchannel(Administrator Permission Required)__**\nUse it like ``mv!delchannel <channelname>`` to delete that channel in server.\n\n**__mv!setnickall__**\nIt changes nickname of all members by adding text in front of member nicknames in server.\n\n**__mv!resetnick__**\nUse it like: ``mv!resetnick @user/all`` to reset nickname of @user or all in the server", color = discord.Color((r << 16) + (g << 8) + b))
 
 gen_cmd = (general1, general2, general3)
 mod_cmd = (mod1, mod2, mod3, mod4)
@@ -1311,7 +1311,7 @@ async def warn(ctx, userName: discord.User=None,*, message:str=None):
 async def setnick(ctx, user: discord.Member=None, *, nickname=None):
     member = user.name
     if user is None:
-      await client.say('Please tag a person to change nickname. Example- ``mv!setnick @user <new nickname>``')
+      await client.say('Please tag a person to change nickname. Example- ``mv!setnick @user/all <new nickname>``')
       return
     else:
       await client.change_nickname(user, nickname)
@@ -1325,7 +1325,7 @@ async def setnick(ctx, user: discord.Member=None, *, nickname=None):
 @commands.has_permissions(administrator=True)     
 async def all(ctx,*,nickname:str=None):
     if nickname is None:
-      await client.say('Please use this command like:``mv!setnickall <new nickname>``')
+      await client.say('Please use this command like:``mv!setnick all <new nickname>``')
       return
     else: 
       for user in ctx.message.server.members:
@@ -1348,7 +1348,7 @@ async def all(ctx,*,nickname:str=None):
 async def resetnick(ctx, user: discord.Member=None):
     member = user.name
     if user is None:
-      await client.say('Please tag a person to reset nickname. Example- ``mv!resetnick @user``')
+      await client.say('Please tag a person to reset nickname. Example- ``mv!resetnick @user/all``')
       return
     else:
       nick = user.name
@@ -1371,21 +1371,10 @@ async def all(ctx):
       except:
         pass	
     if state == 'done':
-      await client.say('Done the Resetting all nicknames')
+      await client.say('Resetted all nicknames')
     else:
       pass
 		
-@client.command(pass_context = True)
-@commands.has_permissions(administrator=True)     
-async def resetnickall(ctx):
-    for user in ctx.message.server.members:
-      try:
-        await asyncio.sleep(1)
-        nick = user.name
-        await client.change_nickname(user, nick)
-      except:
-        pass	
-
 @client.command(pass_context=True)
 async def poll(ctx, question, *options: str):
         if len(options) <= 1:
