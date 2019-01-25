@@ -1337,9 +1337,9 @@ async def all(ctx,*,nickname:str=None):
           pass	
       if state == 'add':
         await client.say(f'Setted up nickname of everyone to ``{nickname} + username``')
-	return
+        return
       else:
-	pass
+        pass
 		
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True)     
