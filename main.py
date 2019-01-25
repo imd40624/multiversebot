@@ -1226,21 +1226,45 @@ async def iamserverdeveloper(ctx):
     await client.send_message(author, embed=embed)
  
 	
-@client.command(pass_context = True)
-@commands.has_permissions(manage_roles=True)     
-async def role(ctx, user: discord.Member=None, *, role: discord.Role = None):
-        if user is None:
-            await client.say("You haven't specified a member! ")
-        if role is None:
-            await client.say("You haven't specified a role! ")
-        if role not in user.roles:
-            await client.add_roles(user, role)
-            await client.say("{} role has been added to {}.".format(role, user))
-            return
-        if role in user.roles:
-            await client.remove_roles(user, role)
-            await client.say("{} role has been removed from {}.".format(role, user)) 
-          
+@client.group(pass_context=True, invoke_without_command=True)
+@commands.has_permissions(manage_roles=True)  
+async def testrole(ctx, user:discord.Member=None,*, role:discord.Role=None):
+    if user is None or role is None:
+        await client.say('Use this command like: ``mv!role all/@user role``')
+        return
+    if role in user.roles:
+        await client.remove_roles(user, role)
+        await client.say("{} role has been removed in {}.".format(role, user))
+    else:
+        await client.add_roles(user, role)
+        await client.say("{} role has been added in {}.".format(role, user))
+
+
+@testrole.command(pass_context=True)
+@commands.has_permissions(manage_roles=True)  
+async def all(ctx,*,role:discord.Role=None):
+    if role is None:
+        await client.say('Use this command like: ``mv!role all role``')
+        return
+    else:
+        for user in ctx.message.server.members:
+          await asyncio.sleep(1)
+          try:
+            if role in user.roles:
+              await client.remove_roles(user, role)
+              state = 'remove'
+            else:
+              await client.add_roles(user, role)
+              state = 'add'
+
+          except:
+            pass
+
+        if state == 'remove':
+            await client.say(f'Removed {role.name} role from everyone')
+
+        elif state == 'add':
+            await client.say(f'Gave {role.name} role to everyone')
 	
 
 @client.command(pass_context = True)
