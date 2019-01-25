@@ -1309,6 +1309,7 @@ async def warn(ctx, userName: discord.User=None,*, message:str=None):
 @client.group(pass_context=True, invoke_without_command=True)
 @commands.has_permissions(manage_nicknames=True)     
 async def setnick(ctx, user: discord.Member=None, *, nickname=None):
+    member = user.name
     if user is None:
       await client.say('Please tag a person to change nickname. Example- ``mv!setnick @user <new nickname>``')
       return
