@@ -1322,7 +1322,7 @@ async def setnick(ctx, user: discord.Member=None, *, nickname=None):
             await client.send_message(channel, embed=embed)
 		
 @setnick.command(pass_context=True)
-@commands.has_permissions(manage_nicknames=True)     
+@commands.has_permissions(administrator=True)     
 async def all(ctx,*,nickname:str=None):
     if nickname is None:
       await client.say('Please use this command like:``mv!setnickall <new nickname>``')
@@ -1341,6 +1341,39 @@ async def all(ctx,*,nickname:str=None):
         return
       else:
         pass
+
+
+@client.group(pass_context=True, invoke_without_command=True)
+@commands.has_permissions(manage_nicknames=True)     
+async def resetnick(ctx, user: discord.Member=None):
+    member = user.name
+    if user is None:
+      await client.say('Please tag a person to reset nickname. Example- ``mv!resetnick @user``')
+      return
+    else:
+      nick = user.name
+      await client.change_nickname(user, nick)
+      await client.delete_message(ctx.message)
+      for channel in user.server.channels:
+        if channel.name == '╰☆☆-multiverse-log-☆☆╮':
+            embed=discord.Embed(title="Reset Nickname of User!", description="**{0}** nickname was reset by **{1}**!".format(member, ctx.message.author), color=0x0521F6)
+            await client.send_message(channel, embed=embed)
+		
+@setnick.command(pass_context=True)
+@commands.has_permissions(administrator=True)     
+async def all(ctx):
+    for user in ctx.message.server.members:
+      try:
+        await asyncio.sleep(1)
+        nick = user.name
+        await client.change_nickname(user, nick)
+	state = 'done'
+      except:
+        pass	
+    if state == 'done':
+      await client.say('Done the Resetting all nicknames')
+    else:
+      pass
 		
 @client.command(pass_context = True)
 @commands.has_permissions(administrator=True)     
@@ -1350,18 +1383,6 @@ async def resetnickall(ctx):
         await asyncio.sleep(1)
         nick = user.name
         await client.change_nickname(user, nick)
-      except:
-        pass	
-
-@client.command(pass_context = True)
-@commands.has_permissions(administrator=True)     
-async def resetnickallggc(ctx):
-    for user in ctx.message.server.members:
-      try:
-        nick = user.name
-        await client.change_nickname(user, nick)
-        new_n = '[GGC]' + user.name
-        await client.change_nickname(user, new_n)
       except:
         pass	
 
