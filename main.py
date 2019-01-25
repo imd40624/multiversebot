@@ -1228,7 +1228,7 @@ async def iamserverdeveloper(ctx):
 	
 @client.group(pass_context=True, invoke_without_command=True)
 @commands.has_permissions(manage_roles=True)  
-async def testrole(ctx, user:discord.Member=None,*, role:discord.Role=None):
+async def role(ctx, user:discord.Member=None,*, role:discord.Role=None):
     if user is None or role is None:
         await client.say('Use this command like: ``mv!role all/@user role``')
         return
