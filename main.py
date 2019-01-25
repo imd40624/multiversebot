@@ -1359,7 +1359,7 @@ async def resetnick(ctx, user: discord.Member=None):
             embed=discord.Embed(title="Reset Nickname of User!", description="**{0}** nickname was reset by **{1}**!".format(member, ctx.message.author), color=0x0521F6)
             await client.send_message(channel, embed=embed)
 		
-@setnick.command(pass_context=True)
+@resetnick.command(pass_context=True)
 @commands.has_permissions(administrator=True)     
 async def all(ctx):
     for user in ctx.message.server.members:
