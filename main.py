@@ -1235,14 +1235,14 @@ async def role(ctx, user:discord.Member=None,*, role:discord.Role=None):
     if role in user.roles:
         await client.remove_roles(user, role)
         await client.say("{} role has been removed in {}.".format(role, user))
-	return
+        return
     if role not in ctx.message.server.roles:
         await client.say(f'{role} Not found')
         return
     else:
         await client.add_roles(user, role)
         await client.say("{} role has been added in {}.".format(role, user))
-	return
+        return
 
 
 @role.command(pass_context=True)
