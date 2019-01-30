@@ -1951,11 +1951,10 @@ async def guess(ctx, number):
 @client.command(pass_context=True)
 @commands.has_permissions(kick_members=True) 
 async def roles(context):
-	"""Displays all of the roles with their ids"""
-	roles = ctx.message.server.roles
+        roles = ctx.message.server.roles
         result = "The roles are loading..."
         msg = await client.say(result)
-	for role in roles:
+        for role in roles:
           rolestuff = '``' + role.name + '``' + ": " + '``' + role.id + '``' + "\n "
           await client.say(rolestuff)
         await client.edit_message(msg, "Roles:")
