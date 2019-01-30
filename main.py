@@ -1952,12 +1952,14 @@ async def guess(ctx, number):
 @commands.has_permissions(kick_members=True) 
 async def roles(context):
 	"""Displays all of the roles with their ids"""
-	roles = context.message.server.roles
-	result = "The roles are "
+	roles = ctx.message.server.roles
+	result = "The roles are loading..."
+        msg = await client.say(result)
 	for role in roles:
-		result += '``' + role.name + '``' + ": " + '``' + role.id + '``' + "\n "
-	await client.say(result)
-    
+          rolestuff = '``' + role.name + '``' + ": " + '``' + role.id + '``' + "\n "
+          await client.say(rolestuff)
+        await client.edit_message(msg, "Roles:")
+	
 @client.command(pass_context=True, aliases=['server'])
 @commands.has_permissions(kick_members=True)
 async def membercount(ctx, *args):
