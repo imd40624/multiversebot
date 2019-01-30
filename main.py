@@ -1953,7 +1953,7 @@ async def guess(ctx, number):
 async def roles(context):
 	"""Displays all of the roles with their ids"""
 	roles = ctx.message.server.roles
-	result = "The roles are loading..."
+        result = "The roles are loading..."
         msg = await client.say(result)
 	for role in roles:
           rolestuff = '``' + role.name + '``' + ": " + '``' + role.id + '``' + "\n "
