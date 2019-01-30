@@ -1950,7 +1950,7 @@ async def guess(ctx, number):
 
 @client.command(pass_context=True)
 @commands.has_permissions(kick_members=True) 
-async def roles(context):
+async def roles(ctx):
         roles = ctx.message.server.roles
         msg = await client.say("The roles are loading...")
         for role in roles:
