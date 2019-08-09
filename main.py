@@ -1891,6 +1891,12 @@ async def unverify(ctx):
     await client.delete_message(ctx.message)
     role = discord.utils.get(ctx.message.server.roles, name='Unverified')
     await client.add_roles(ctx.message.author, role)
+
+@client.command(pass_context=True)
+async def dice(ctx):
+	await client.say("dice is game of world")
+	else
+	await client.say("dice is simple game in indoor")
     
 @client.command(pass_context=True)
 async def verify(ctx):
